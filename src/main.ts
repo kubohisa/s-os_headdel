@@ -9,10 +9,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 document.getElementById("objectFile")?.addEventListener("change", showFile, false);
 
-function showFile() {
+/*
 
-// readerの準備
-const reader = new FileReader();
+*/
+
+function showFile() {
 
 // ファイル名の取得
 const inputFile = <HTMLInputElement>document.getElementById('objectFile')!;
@@ -29,16 +30,43 @@ let file_type = file.name.split('.').pop();
 //
 if (file_type !== "obj") return;
 
-// 
-let sosFlag = "No";
-
-//
+// readerの準備
+const reader = new FileReader();
 reader.readAsArrayBuffer(file);
 
+let arr :Uint8Array;
+
 reader.addEventListener("load", () => {
-	var arr = new Uint8Array(<ArrayBuffer>reader.result);
+	/*
 	
-	// 
+	*/
+	arr = new Uint8Array(<ArrayBuffer>reader.result);
+	
+	fileSos(arr);
+	
+});
+
+}
+
+/*
+
+*/
+
+function fileSos(arr) {	
+	/*
+	
+	*/
+	const inputFile = <HTMLInputElement>document.getElementById('objectFile')!;
+	var file = inputFile?.files[0];
+
+	let file_type = file.name.split('.').pop();
+	
+	let regexp = new RegExp('\.'+ file_type + '$');
+	let filenameBody = file.name.replace(regexp, '');
+	
+	//
+	let sosFlag = "No";
+	
 	var header = "";
 	for (var i = 0; i < 5; i++) {
 		header += String.fromCharCode(arr[i]);
@@ -52,7 +80,9 @@ Error: s-os sowrdの実行ファイルではありません
 		return;
 	}
 
-	//
+	/*
+	
+	*/
 	var startAdrs = "";
 	for (var i = 8; i < 12; i++) {
 		startAdrs += String.fromCharCode(arr[i]);
@@ -66,8 +96,6 @@ Error: s-os sowrdの実行ファイルではありません
 	var data = new Blob([arr.slice(18, file.size)], {type: "application/octet-binary"});
 	let objUrl = window.URL.createObjectURL(data);
 	
-	var filenameBody = file.name.split('.').shift();
-	
 	// 
 	document.querySelector<HTMLDivElement>('#file')!.innerHTML = `
 	<table>
@@ -80,9 +108,7 @@ Error: s-os sowrdの実行ファイルではありません
 	<tr><th>Last modified</th><th>${file.lastModified}</th></tr>
 	</table>
 	<br/>
-	<a href="${objUrl}" download="${filenameBody}_nohead.${file_type}" class="btn filled">Download</a>
+	<a href="${objUrl}" download="${filenameBody}_noheader.${file_type}" class="btn filled">Download</a>
 `
-
-});
 
 }
