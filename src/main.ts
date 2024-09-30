@@ -16,10 +16,18 @@ document.getElementById('objectFile')?.addEventListener('change', showFile, fals
 function showFile() {
 	//
 	ExecFile.load();
-	if (ExecFile.flag === false) return;
+	if (ExecFile.flag === false) {
+		document.querySelector<HTMLDivElement>('#file')!.innerHTML = ``;
+		return;
+	}
 
 	//
-	if (ExecFile.type !== 'obj') return;
+	if (ExecFile.type !== 'obj') {
+		document.querySelector<HTMLDivElement>('#file')!.innerHTML = `
+Error: s-os sowrdの実行ファイルではありません
+`;
+		return;
+	}
 
 	//
 	const reader = new FileReader();
