@@ -55,7 +55,8 @@ export class MztData {
     <tr><th>MztFile name</th><th>${ExecFile.file.name}</th></tr>
     <tr><th>File name</th><th>${mztFilename}</th></tr>
     <tr><th>Mtz file?</th><th>${sosFlag}</th></tr>
-    <tr><th>File size</th><th>${headersSize}byte</th></tr>
+    <tr><th>Mzt Filesize</th><th>${ExecFile.size}byte</th></tr>
+    <tr><th>Filesize (at Mzt Header)</th><th>${headersSize}byte</th></tr>
      <tr><th>Header delete File Size</th><th>${data.size}byte (${sizeRange}byte)</th></tr>
     <tr><th>Start address</th><th>0x${startAdrs}</th></tr>
     <tr><th>Exec address</th><th>0x${execAdrs}</th></tr>
