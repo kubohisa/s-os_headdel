@@ -1,4 +1,5 @@
 import { ExecFile } from './ExecFile.ts';
+import { MztData } from './MztData.ts';
 import { SosData } from './SosData.ts';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -22,7 +23,8 @@ function showFile() {
 	}
 
 	//
-	if (ExecFile.type !== 'obj') {
+	ExecFile.type = ExecFile.type.toLowerCase();
+	if (ExecFile.type !== 'obj' && ExecFile.type !== 'mzt') {
 		document.querySelector<HTMLDivElement>('#file')!.innerHTML = `
 Error: s-os sowrdの実行ファイルではありません
 `;
@@ -35,6 +37,7 @@ Error: s-os sowrdの実行ファイルではありません
 	reader.onload = () => {
 		ExecFile.arr = new Uint8Array(<ArrayBuffer> reader.result);
 		if (ExecFile.type === 'obj') SosData.file();
+		if (ExecFile.type === 'mzt') MztData.file();
 	};
 	reader.readAsArrayBuffer(ExecFile.file);
 }
