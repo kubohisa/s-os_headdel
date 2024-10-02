@@ -4,7 +4,8 @@ import { SosData } from './SosData.ts';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <p><input id="objectFile" type="file" /></p>
+    <p><input id="objectFile" type="file" accept=".obj, .mzt" /></p>
+	<p>対応ファイルは .obj と .mzt です</p>
   </div>
 `;
 
